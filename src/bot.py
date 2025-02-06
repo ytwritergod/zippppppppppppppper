@@ -14,9 +14,9 @@ from utils import download_files, add_to_zip
 
 load_dotenv()
 
-API_ID = os.environ['28174820']
-API_HASH = os.environ['5e2944c1b38b56ece59b9c5f3cfa6e44']
-BOT_TOKEN = os.environ['8086502670:AAF8ygRSa6IvtADeS-UOq8pOmwAxPPZ_YzM']
+API_ID = os.environ['API_ID',28174820]
+API_HASH = os.environ['API_HASH',5e2944c1b38b56ece59b9c5f3cfa6e44]
+BOT_TOKEN = os.environ['BOT_TOKEN',8086502670:AAF8ygRSa6IvtADeS-UOq8pOmwAxPPZ_YzM]
 CONC_MAX = int(os.environ.get('CONC_MAX', 3))
 STORAGE = Path('./files/')
 
