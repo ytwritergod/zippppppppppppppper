@@ -1,3 +1,4 @@
+from typing import Dict, List, Union
 from functools import partial
 from asyncio import get_running_loop
 from shutil import rmtree
@@ -5,7 +6,7 @@ from pathlib import Path
 import logging
 import os
 
-from dotenv import load_dotenv
+from dotenv import load_dotenv, main
 from telethon import TelegramClient
 from telethon.events import NewMessage, StopPropagation
 from telethon.tl.custom import Message
@@ -14,13 +15,13 @@ from utils import download_files, add_to_zip
 
 load_dotenv()
 
-API_ID = os.environ['API_ID', 28174820]
-API_HASH = os.environ['API_HASH', 5e2944c1b38b56ece59b9c5f3cfa6e44]
-BOT_TOKEN = os.environ['BOT_TOKEN', 8086502670:AAF8ygRSa6IvtADeS-UOq8pOmwAxPPZ_YzM]
+API_ID = os.environ['API_ID']
+API_HASH = os.environ['API_HASH']
+BOT_TOKEN = os.environ['BOT_TOKEN']
 CONC_MAX = int(os.environ.get('CONC_MAX', 3))
 STORAGE = Path('./files/')
 
-MessageEvent = NewMessage.Event | Message
+MessageEvent = Union[NewMessage.Event, Message]
 
 logging.basicConfig(
     format='[%(levelname)s/%(asctime)s] %(name)s: %(message)s',
@@ -30,8 +31,8 @@ logging.basicConfig(
     ]
 )
 
-# dict to keep track of tasks for every user
-tasks: dict[int, list[int]] = {}
+# dict to keep track of users task
+tasks: Dict[int, List[int]] = {}
 
 bot = TelegramClient(
     'quick-zip-bot', api_id=API_ID, api_hash=API_HASH
